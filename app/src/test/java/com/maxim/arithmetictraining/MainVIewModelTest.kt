@@ -2,6 +2,10 @@ package com.maxim.arithmetictraining
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.maxim.arithmetictraining.domain.Interactor
+import com.maxim.arithmetictraining.presentation.Communication
+import com.maxim.arithmetictraining.presentation.MainViewModel
+import com.maxim.arithmetictraining.presentation.UiState
 import kotlinx.coroutines.Dispatchers
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -21,51 +25,51 @@ class MainVIewModelTest {
     @Test
     fun test_init() {
         viewModel.init()
-        assertEquals(listOf(State.Settings(0, 1)), communication)
+        assertEquals(listOf(UiState.Settings(0, 1)), communication.list)
     }
 
     @Test
     fun test_set_difficulty() {
         viewModel.setDifficulty(2)
-        assertEquals(listOf(State.Settings(2, 1)), communication)
+        assertEquals(listOf(UiState.Settings(2, 1)), communication.list)
     }
 
     @Test
     fun test_set_length() {
         viewModel.setLength(2)
-        assertEquals(listOf(State.Settings(0, 2)), communication)
+        assertEquals(listOf(UiState.Settings(0, 2)), communication.list)
     }
 
     @Test
     fun test_enter_number() {
         viewModel.enterNumber(454)
-        assertEquals(listOf(454), interactor.number)
+        assertEquals(listOf(454), interactor.numberList)
     }
 
     @Test
     fun test_start() {
         viewModel.start()
-        assertEquals(listOf(State.StartTimer(3), State.StartTimer(2), State.StartTimer(1)), communication.list)
+        assertEquals(listOf(UiState.StartTimer(3), UiState.StartTimer(2), UiState.StartTimer(1)), communication.list)
     }
 
 
     private class FakeCommunication: Communication {
-        var list = mutableListOf<State>()
-        override fun update(state: State) {
+        var list = mutableListOf<UiState>()
+        override fun update(state: UiState) {
             list.add(state)
         }
 
-        override fun observe(owner: LifecycleOwner, observer: Observer<State>) {
+        override fun observe(owner: LifecycleOwner, observer: Observer<UiState>) {
             throw IllegalStateException("not using in tests")
         }
     }
 
     private class FakeInteractor: Interactor {
         private var difficulty = 0
-        private var length = 3
+        private var length = 1
         val numberList = mutableListOf<Int>()
-        override fun loadSettings(): State {
-            return State.Settings(difficulty, length)
+        override fun loadSettings(): UiState {
+            return UiState.Settings(difficulty, length)
         }
 
         override fun setDifficulty(d: Int) {
@@ -80,10 +84,10 @@ class MainVIewModelTest {
             numberList.add(number)
         }
 
-        override fun start(communication: Communication) {
-            communication.update(State.StartTimer(3))
-            communication.update(State.StartTimer(2))
-            communication.update(State.StartTimer(1))
+        override suspend fun start(communication: Communication) {
+            communication.update(UiState.StartTimer(3))
+            communication.update(UiState.StartTimer(2))
+            communication.update(UiState.StartTimer(1))
         }
     }
 }
