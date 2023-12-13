@@ -53,17 +53,6 @@ class MainVIewModelTest {
     }
 
 
-    private class FakeCommunication: Communication {
-        var list = mutableListOf<UiState>()
-        override fun update(state: UiState) {
-            list.add(state)
-        }
-
-        override fun observe(owner: LifecycleOwner, observer: Observer<UiState>) {
-            throw IllegalStateException("not using in tests")
-        }
-    }
-
     private class FakeInteractor: Interactor {
         private var difficulty = 0
         private var length = 1
