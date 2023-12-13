@@ -25,6 +25,7 @@ class MainVIewModelTest {
     @Test
     fun test_init() {
         viewModel.init()
+        assertEquals(1, interactor.initCounter)
         assertEquals(listOf(UiState.Settings(0, 1)), communication.list)
     }
 
@@ -56,7 +57,12 @@ class MainVIewModelTest {
     private class FakeInteractor: Interactor {
         private var difficulty = 0
         private var length = 1
+        var initCounter = 0
         val numberList = mutableListOf<Int>()
+        override fun init() {
+            initCounter++
+        }
+
         override fun loadSettings(): UiState {
             return UiState.Settings(difficulty, length)
         }

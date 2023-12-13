@@ -1,6 +1,8 @@
 package com.maxim.arithmetictraining
 
 import com.maxim.arithmetictraining.domain.Interactor
+import com.maxim.arithmetictraining.domain.InteractorRandomizer
+import com.maxim.arithmetictraining.domain.SharedPreferencesWrapper
 import com.maxim.arithmetictraining.presentation.UiState
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -9,14 +11,14 @@ import org.junit.Test
 
 class InteractorTest {
     private lateinit var preferences: FakeSharedPreferencesWrapper
-    private lateinit var randomNumber: FakeInteractorRandomizer
+    private lateinit var ramdomizer: FakeInteractorRandomizer
     private lateinit var interactor: Interactor
 
     @Before
     fun before() {
         preferences = FakeSharedPreferencesWrapper()
-        randomNumber = FakeInteractorRandomizer(456)
-        interactor = Interactor.Base(preferences)
+        ramdomizer = FakeInteractorRandomizer(456)
+        interactor = Interactor.Base(preferences, ramdomizer)
     }
 
     @Test
@@ -50,6 +52,7 @@ class InteractorTest {
     fun test_start_easy() = runBlocking {
         val communication = FakeCommunication()
         interactor.setDifficulty(0)
+        interactor.setLength(2)
         interactor.start(communication)
         assertEquals(
             listOf(
@@ -57,8 +60,9 @@ class InteractorTest {
                 UiState.StartTimer(2),
                 UiState.StartTimer(1),
                 UiState.ShowNumber(458),
+                UiState.Empty,
                 UiState.ShowInput("Increase each digit by 1"),
-                UiState.ShowFaile,
+                UiState.ShowFail,
                 UiState.Settings(0, 2)
             ), communication.list
         )
@@ -68,6 +72,7 @@ class InteractorTest {
     fun test_start_normal() = runBlocking {
         val communication = FakeCommunication()
         interactor.setDifficulty(1)
+        interactor.setLength(2)
         interactor.start(communication)
         assertEquals(
             listOf(
@@ -75,8 +80,9 @@ class InteractorTest {
                 UiState.StartTimer(2),
                 UiState.StartTimer(1),
                 UiState.ShowNumber(458),
+                UiState.Empty,
                 UiState.ShowInput("Decrease each digit by 2"),
-                UiState.ShowFaile,
+                UiState.ShowFail,
                 UiState.Settings(1, 2)
             ), communication.list
         )
@@ -86,6 +92,7 @@ class InteractorTest {
     fun test_start_hard() = runBlocking {
         val communication = FakeCommunication()
         interactor.setDifficulty(2)
+        interactor.setLength(2)
         interactor.start(communication)
         assertEquals(
             listOf(
@@ -93,8 +100,9 @@ class InteractorTest {
                 UiState.StartTimer(2),
                 UiState.StartTimer(1),
                 UiState.ShowNumber(458),
+                UiState.Empty,
                 UiState.ShowInput("Increase each digit by 7"),
-                UiState.ShowFaile,
+                UiState.ShowFail,
                 UiState.Settings(2, 2)
             ), communication.list
         )
