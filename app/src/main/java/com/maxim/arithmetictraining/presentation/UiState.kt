@@ -1,7 +1,9 @@
 package com.maxim.arithmetictraining.presentation
 
+import android.app.Activity
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -84,6 +86,8 @@ abstract class UiState {
             mainLayout.visibility = View.GONE
             singleText.visibility = View.VISIBLE
             singleText.text = time.toString()
+            val inputMethodManager = singleText.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(singleText.windowToken, 0)
         }
     }
 
@@ -122,6 +126,8 @@ abstract class UiState {
             mainLayout.visibility = View.GONE
             singleText.visibility = View.VISIBLE
             singleText.text = "Fail"
+            val inputMethodManager = singleText.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(singleText.windowToken, 0)
         }
     }
 
@@ -133,6 +139,8 @@ abstract class UiState {
             mainLayout.visibility = View.GONE
             singleText.visibility = View.VISIBLE
             singleText.text = "Right"
+            val inputMethodManager = singleText.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(singleText.windowToken, 0)
         }
     }
 
