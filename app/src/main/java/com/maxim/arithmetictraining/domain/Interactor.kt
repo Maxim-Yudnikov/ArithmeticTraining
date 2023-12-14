@@ -10,6 +10,7 @@ interface Interactor {
     fun setDifficulty(d: Int)
     fun setLength(length: Int)
     fun enterNumber(number: Int)
+    fun getActualDifficulty(): Int
     suspend fun start(communication: Communication)
 
     class Base(
@@ -41,6 +42,9 @@ interface Interactor {
         override fun enterNumber(number: Int) {
             this.number = number
         }
+
+        //todo test
+        override fun getActualDifficulty() = diff
 
         override suspend fun start(communication: Communication) {
             val guessedNumber = randomizer.getNumber(length)

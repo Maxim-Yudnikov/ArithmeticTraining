@@ -36,6 +36,12 @@ class MainVIewModelTest {
     }
 
     @Test
+    fun test_get_actual_difficulty() {
+        val actual = viewModel.getActualDifficulty()
+        assertEquals(2, actual)
+    }
+
+    @Test
     fun test_set_length() {
         viewModel.setLength(2)
         assertEquals(listOf(UiState.Settings(0, 2)), communication.list)
@@ -70,6 +76,8 @@ class MainVIewModelTest {
         override fun setDifficulty(d: Int) {
             difficulty = d
         }
+
+        override fun getActualDifficulty(): Int = 2
 
         override fun setLength(length: Int) {
             this.length = length

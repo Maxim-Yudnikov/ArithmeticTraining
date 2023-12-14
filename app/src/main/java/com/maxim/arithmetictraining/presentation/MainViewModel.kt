@@ -1,5 +1,8 @@
 package com.maxim.arithmetictraining.presentation
 
+import android.util.Log
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.maxim.arithmetictraining.domain.Interactor
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -14,6 +17,7 @@ class MainViewModel(
 ) {
     private val viewModelScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     fun init() {
+        interactor.init()
         communication.update(interactor.loadSettings())
     }
 
@@ -22,9 +26,10 @@ class MainViewModel(
         communication.update(interactor.loadSettings())
     }
 
+    fun getActualDifficulty(): Int = interactor.getActualDifficulty()
+
     fun setLength(length: Int) {
         interactor.setLength(length)
-        communication.update(interactor.loadSettings())
     }
 
     fun enterNumber(number: Int) {
@@ -35,5 +40,9 @@ class MainViewModel(
         viewModelScope.launch(dispatcher) {
             interactor.start(communication)
         }
+    }
+
+    fun observe(owner: LifecycleOwner, observer: Observer<UiState>) {
+        communication.observe(owner, observer)
     }
 }

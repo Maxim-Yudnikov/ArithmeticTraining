@@ -1,5 +1,6 @@
 package com.maxim.arithmetictraining.presentation
 
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -11,7 +12,7 @@ interface Communication {
     class Base: Communication {
         private val liveData = MutableLiveData<UiState>()
         override fun update(state: UiState) {
-            liveData.value = state
+            liveData.postValue(state)
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<UiState>) {
