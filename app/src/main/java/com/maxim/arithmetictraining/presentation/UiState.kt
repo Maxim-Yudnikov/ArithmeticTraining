@@ -147,10 +147,12 @@ abstract class UiState {
         override fun apply(
             mainLayout: LinearLayout,
             singleText: TextView,
+            ruleTextView: TextView,
             inputNumberEditText: EditText
         ) {
             mainLayout.visibility = View.GONE
             singleText.visibility = View.GONE
+            ruleTextView.visibility = View.GONE
             inputNumberEditText.visibility = View.GONE
         }
     }

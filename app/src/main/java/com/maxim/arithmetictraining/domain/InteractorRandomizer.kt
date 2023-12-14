@@ -1,5 +1,6 @@
 package com.maxim.arithmetictraining.domain
 
+import kotlin.math.absoluteValue
 import kotlin.math.pow
 
 interface InteractorRandomizer {
@@ -35,7 +36,7 @@ interface InteractorRandomizer {
                     }
                     saveAction = random
                     if (random < 0)
-                        "Decrease each digit by $random"
+                        "Decrease each digit by ${random.absoluteValue}"
                     else
                         "Increase each digit by $random"
                 }
