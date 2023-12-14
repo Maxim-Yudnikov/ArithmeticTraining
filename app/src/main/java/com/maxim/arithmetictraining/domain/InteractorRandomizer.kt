@@ -1,6 +1,5 @@
 package com.maxim.arithmetictraining.domain
 
-import android.util.Log
 import kotlin.math.pow
 
 interface InteractorRandomizer {
@@ -54,7 +53,6 @@ interface InteractorRandomizer {
                 else if (actualDigit < 0) actualDigit += 10
                 result += actualDigit * 10f.pow(i).toInt()
             }
-            Log.d("MyLog", "Guessed: $guessedNumber, result: $result")
             return result
         }
     }

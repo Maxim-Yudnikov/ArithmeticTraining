@@ -1,6 +1,5 @@
 package com.maxim.arithmetictraining.domain
 
-import android.util.Log
 import com.maxim.arithmetictraining.presentation.Communication
 import com.maxim.arithmetictraining.presentation.UiState
 import kotlinx.coroutines.delay

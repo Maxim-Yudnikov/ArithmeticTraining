@@ -1,11 +1,9 @@
 package com.maxim.arithmetictraining.presentation
 
 import android.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.maxim.arithmetictraining.R
 import com.maxim.arithmetictraining.core.App
 import com.maxim.arithmetictraining.databinding.ActivityMainBinding
 
