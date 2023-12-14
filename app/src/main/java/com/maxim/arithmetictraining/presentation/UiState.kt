@@ -19,7 +19,7 @@ abstract class UiState {
         apply(mainLayout, singleText, lengthEditText, diffTextView)
         apply(mainLayout, singleText, inputNumberEditText)
         apply(mainLayout, singleText, ruleTextView)
-        apply(mainLayout, singleText, ruleTextView = ruleTextView, inputNumberEditText)
+        apply(mainLayout, singleText, ruleTextView, inputNumberEditText)
     }
 
     open fun apply(
@@ -110,6 +110,7 @@ abstract class UiState {
             ruleTextView.visibility = View.VISIBLE
             ruleTextView.text = rule
             inputNumberEditText.visibility = View.VISIBLE
+            inputNumberEditText.setText("")
         }
     }
 

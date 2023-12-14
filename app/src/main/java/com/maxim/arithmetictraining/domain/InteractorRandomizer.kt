@@ -1,5 +1,6 @@
 package com.maxim.arithmetictraining.domain
 
+import android.util.Log
 import kotlin.math.pow
 
 interface InteractorRandomizer {
@@ -26,9 +27,13 @@ interface InteractorRandomizer {
                     saveAction = 1
                     "Increase each digit by 1"
                 }
+
                 else -> {
                     val range = if (diff == 1) 2 else 9
-                    val random = (range * -1..range).random()
+                    var random = 0
+                    while (random == 0) {
+                        random = (range * -1..range).random()
+                    }
                     saveAction = random
                     if (random < 0)
                         "Decrease each digit by $random"
@@ -43,12 +48,13 @@ interface InteractorRandomizer {
         override fun getRightNumber(): Int {
             var result = 0
             for (i in 0 until guessedNumber.toString().length) {
-                var actualDigit = (guessedNumber % (10f.pow(i) + 1) / 10f.pow(i)).toInt()
+                var actualDigit = (guessedNumber % (10f.pow(i + 1)) / 10f.pow(i)).toInt()
                 actualDigit += saveAction
-                if (actualDigit > 10) actualDigit -= 10
+                if (actualDigit >= 10) actualDigit -= 10
                 else if (actualDigit < 0) actualDigit += 10
-                result += actualDigit
+                result += actualDigit * 10f.pow(i).toInt()
             }
+            Log.d("MyLog", "Guessed: $guessedNumber, result: $result")
             return result
         }
     }

@@ -52,6 +52,11 @@ class MainActivity : AppCompatActivity() {
             binding.startButton.isEnabled = number >= 3
         }
 
+        binding.inputNumberEditText.addTextChangedListener {
+            val text = binding.inputNumberEditText.text.toString()
+            viewModel.enterNumber(if (text.isEmpty()) 0 else text.toInt())
+        }
+
         viewModel.init()
     }
 }

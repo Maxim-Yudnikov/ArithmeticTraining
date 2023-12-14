@@ -1,5 +1,6 @@
 package com.maxim.arithmetictraining.domain
 
+import android.util.Log
 import com.maxim.arithmetictraining.presentation.Communication
 import com.maxim.arithmetictraining.presentation.UiState
 import kotlinx.coroutines.delay
@@ -61,7 +62,7 @@ interface Interactor {
             communication.update(UiState.ShowInput(randomizer.getAction(diff)))
             val rightNumber = randomizer.getRightNumber()
             number = 0
-            delay(5000)
+            delay(10000)
             communication.update(if (number == rightNumber) UiState.ShowSuccess else UiState.ShowFail)
             delay(3000)
             communication.update(UiState.Settings(diff, length))
